@@ -3,24 +3,21 @@ package com.Emailservice.Emailservice.consumers;
 import com.Emailservice.Emailservice.dtos.SendEmailMesaageDto;
 import com.Emailservice.Emailservice.utilities.EmailUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import java.util.Properties;
 
+@Service
 public class EmailConsumer {
 
+    @Autowired
     private ObjectMapper objectMapper;
-    private EmailUtil emailUtil;
-
-    public EmailConsumer(ObjectMapper objectMapper,
-                             EmailUtil emailUtil) {
-        this.objectMapper = objectMapper;
-        this.emailUtil = emailUtil;
-    }
 
     @KafkaListener(id = "emailServiceConsumerGroup", topics = "sendEmail")
     public void handleSendEmail(String massage) throws JsonProcessingException {
@@ -37,12 +34,12 @@ public class EmailConsumer {
         Authenticator auth = new Authenticator() {
             //override the getPasswordAuthentication method
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("namanbatch@gmail.com", "");
+                return new PasswordAuthentication("chaitunadagouda@gmail.com", "lfxmzjhyzyuxweqf");
             }
         };
         Session session = Session.getInstance(props, auth);
 
-        emailUtil.sendEmail(
+        EmailUtil.sendEmail(
                 session,
                 emailMessage.getTo(),
                 emailMessage.getSubject(),

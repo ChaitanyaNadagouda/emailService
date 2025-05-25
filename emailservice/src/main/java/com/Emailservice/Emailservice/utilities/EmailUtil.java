@@ -19,7 +19,7 @@ public class EmailUtil {
      * @param subject
      * @param body
      */
-    public void sendEmail(Session session, String toEmail, String subject, String body){
+    public static void sendEmail(Session session, String toEmail, String subject, String body){
         try
         {
             MimeMessage msg = new MimeMessage(session);
@@ -28,7 +28,7 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("namanbatch@gmail.com", "Naman Bhalla"));
+            msg.setFrom(new InternetAddress("chaitunadagouda@gmail.com", "Chaitanya Nadagouda"));
 
             msg.setReplyTo(InternetAddress.parse("namanbatch@gmail.com", false));
 
