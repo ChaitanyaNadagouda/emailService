@@ -1,5 +1,7 @@
 package com.Emailservice.Emailservice.utilities;
 
+import com.Emailservice.Emailservice.AppConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
@@ -12,6 +14,9 @@ import java.util.Date;
 @Service
 public class EmailUtil {
 
+    @Autowired
+    public AppConfig appConfig;
+
     /**
      * Utility method to send simple HTML email
      * @param session
@@ -19,7 +24,7 @@ public class EmailUtil {
      * @param subject
      * @param body
      */
-    public static void sendEmail(Session session, String toEmail, String subject, String body){
+    public void sendEmail(Session session, String toEmail, String subject, String body){
         try
         {
             MimeMessage msg = new MimeMessage(session);
@@ -28,9 +33,9 @@ public class EmailUtil {
             msg.addHeader("format", "flowed");
             msg.addHeader("Content-Transfer-Encoding", "8bit");
 
-            msg.setFrom(new InternetAddress("chaitunadagouda@gmail.com", "Chaitanya Nadagouda"));
+            msg.setFrom(new InternetAddress(appConfig.getUsername(), appConfig.getPersnalName()));
 
-            msg.setReplyTo(InternetAddress.parse("namanbatch@gmail.com", false));
+            msg.setReplyTo(InternetAddress.parse(appConfig.getUsername(), false));
 
             msg.setSubject(subject, "UTF-8");
 
